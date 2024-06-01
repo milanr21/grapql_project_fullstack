@@ -22,3 +22,34 @@ email,
 phoneNo
 }
 }
+
+# Mutation Query to delete the client
+
+mutation{
+deleteClient(id: "665b2dd6f67da7abcd82e3f6"){
+name
+}
+}
+
+# Mutation Query Adding a project
+
+mutation{
+addProject(name: "Making a UI", description: "Make a ui for the homepage", status: NOT_STARTED, clientId: "665b2aa0785ea8927b7d2fbe")
+{
+name,
+id,
+}
+
+}
+
+# Mutation - Project Update Query
+
+mutation{
+updateProject(id: "665b40168f32c76cf16d0d00", status: COMPLETED, name: "REACT"){
+id,
+name,
+description,
+status
+
+}
+}
