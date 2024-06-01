@@ -1,5 +1,5 @@
+const STATUS = require('../enums/STATUS');
 const mongoose = require('mongoose');
-import { STATUS } from '../enums/STATUS';
 
 const ProjectSchema = new mongoose.Schema({
   name: {

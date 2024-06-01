@@ -1,4 +1,5 @@
-const { sender, receiver } = require('../Data.js');
+const Project = require('../models/Project');
+const Client = require('../models/Client');
 
 const {
   GraphQLObjectType,
@@ -8,8 +9,8 @@ const {
   GraphQLList,
 } = require('graphql');
 
-const senderType = new GraphQLObjectType({
-  name: 'sender',
+const ProjectType = new GraphQLObjectType({
+  name: 'Project',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -17,16 +18,16 @@ const senderType = new GraphQLObjectType({
     email: { type: GraphQLString },
     status: { type: GraphQLString },
     receiver: {
-      type: recieverType,
+      type: ClientType,
       resolve(parent, args) {
-        return receiver.find((reciever) => reciever.id == parent.receiverId);
+        return Client.findById(parent.clientId);
       },
     },
   }),
 });
 
-const recieverType = new GraphQLObjectType({
-  name: 'reciever',
+const ClientType = new GraphQLObjectType({
+  name: 'Client',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -39,38 +40,38 @@ const recieverType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    senders: {
-      type: new GraphQLList(senderType),
+    projects: {
+      type: new GraphQLList(ProjectType),
       resolve(parent, args) {
-        return sender;
+        return Project.find();
       },
     },
-    recievers: {
-      type: new GraphQLList(recieverType),
+    clients: {
+      type: new GraphQLList(ClientType),
       resolve(parent, args) {
-        return receiver;
+        return Client.find();
       },
     },
 
-    sender: {
-      type: senderType,
+    project: {
+      type: ProjectType,
       args: {
         id: {
           type: GraphQLID,
         },
       },
       resolve(parent, args) {
-        return sender.find((sender) => sender.id == args.id);
+        return Project.findById(args.id);
       },
     },
 
     //query to get the reciever by id
 
-    reciever: {
-      type: recieverType,
+    client: {
+      type: ClientType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return receiver.find((reciever) => reciever.id == args.id);
+        return Client.findById(args.id);
       },
     },
   },
