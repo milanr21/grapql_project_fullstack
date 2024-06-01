@@ -10,6 +10,7 @@ const {
   GraphQLList,
   GraphQLNonNull,
   GraphQLEnumType,
+  GraphQLEnumType,
 } = require('graphql');
 
 const ProjectStatus = new GraphQLEnumType({
