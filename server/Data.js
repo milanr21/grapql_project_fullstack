@@ -1,4 +1,4 @@
-export const sender = [
+const sender = [
   {
     id: 1,
     name: 'Alice',
@@ -36,7 +36,7 @@ export const sender = [
   },
 ];
 
-export const receiver = [
+const receiver = [
   {
     id: 6,
     name: 'Frank',
@@ -73,3 +73,5 @@ export const receiver = [
     status: 'active',
   },
 ];
+
+module.exports = { sender, receiver };

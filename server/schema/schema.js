@@ -1,6 +1,11 @@
 const { sender, receiver } = require('../Data.js');
 
-const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLSchema,
+} = require('graphql');
 
 const recieverType = new GraphQLObjectType({
   name: 'reciever',
@@ -24,4 +29,8 @@ const RootQuery = new GraphQLObjectType({
       },
     },
   },
+});
+
+module.exports = new GraphQLSchema({
+  query: RootQuery,
 });
