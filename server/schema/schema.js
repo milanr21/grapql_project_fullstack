@@ -1,6 +1,6 @@
-const Project = require('../models/Project');
-const Client = require('../models/Client');
-const STATUS = require('../enums/STATUS');
+const Project = require("../models/Project");
+const Client = require("../models/Client");
+const STATUS = require("../enums/STATUS");
 
 const {
   GraphQLObjectType,
@@ -10,11 +10,10 @@ const {
   GraphQLList,
   GraphQLNonNull,
   GraphQLEnumType,
-  GraphQLEnumType,
-} = require('graphql');
+} = require("graphql");
 
 const ProjectStatus = new GraphQLEnumType({
-  name: 'ProjectStatus',
+  name: "ProjectStatus",
   values: {
     NOT_STARTED: { value: STATUS.NOT_STARTED },
     IN_PROGRESS: { value: STATUS.IN_PROGRESS },
@@ -23,7 +22,7 @@ const ProjectStatus = new GraphQLEnumType({
 });
 
 const ProjectUpdateStatus = new GraphQLEnumType({
-  name: 'ProjectUpdateStatus',
+  name: "ProjectUpdateStatus",
   values: {
     NOT_STARTED: { value: STATUS.NOT_STARTED },
     IN_PROGRESS: { value: STATUS.IN_PROGRESS },
@@ -32,7 +31,7 @@ const ProjectUpdateStatus = new GraphQLEnumType({
 });
 
 const ProjectType = new GraphQLObjectType({
-  name: 'Project',
+  name: "Project",
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -48,7 +47,7 @@ const ProjectType = new GraphQLObjectType({
 });
 
 const ClientType = new GraphQLObjectType({
-  name: 'Client',
+  name: "Client",
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -58,7 +57,7 @@ const ClientType = new GraphQLObjectType({
 });
 
 const RootQuery = new GraphQLObjectType({
-  name: 'RootQueryType',
+  name: "RootQueryType",
   fields: {
     projects: {
       type: new GraphQLList(ProjectType),
@@ -100,7 +99,7 @@ const RootQuery = new GraphQLObjectType({
 // Mutations
 // Adding a  client
 const mutation = new GraphQLObjectType({
-  name: 'Mutation',
+  name: "Mutation",
   fields: {
     addClient: {
       type: ClientType,
