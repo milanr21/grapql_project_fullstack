@@ -2,7 +2,7 @@ import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CLIENTS } from '../queries/getClientsQueries';
 import Table from './Table/Table';
-import { DELETE_MUTATION } from '../mutation/ClientMutations';
+import { DELETE_MUTATION } from '../mutation/deleteClient';
 
 interface Client {
   id: string;
@@ -16,7 +16,7 @@ const Clients = () => {
 
   const [deleteClient] = useMutation(DELETE_MUTATION);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div>Loading.........</div>;
   if (error) return <p>Error: {error.message}</p>;
 
   const tableHeaders = ['id', 'name', 'email', 'phoneNo' as 'Phone Number'];
