@@ -7,7 +7,7 @@ interface ModalProps {
   title: string;
 }
 
-export default function Modal({ title }: ModalProps) {
+export default function ClientModal({ title }: ModalProps) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phoneNo, setPhoneNo] = React.useState('');
@@ -42,7 +42,7 @@ export default function Modal({ title }: ModalProps) {
         onClick={() => setShowModal(true)}
       >
         <FaUserAlt className='' />
-        <span>Add Client</span>
+        <span className=''>Add Client</span>
       </button>
       {showModal ? (
         <>
@@ -113,8 +113,17 @@ export default function Modal({ title }: ModalProps) {
                         onChange={(e) => setPhoneNo(e.target.value)}
                       />
                     </div>
+                    <div className='flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b'></div>
 
                     <div className='flex items-center justify-between'>
+                      <button
+                        className='text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                        type='button'
+                        onClick={() => setShowModal(false)}
+                      >
+                        Cancel{' '}
+                      </button>
+
                       <button
                         className='bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                         type='submit'
@@ -125,23 +134,6 @@ export default function Modal({ title }: ModalProps) {
                   </form>
                 </div>
                 {/*footer*/}
-                <div className='flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b'>
-                  <button
-                    className='text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-                    type='button'
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    type='submit'
-                    className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-                    type='button'
-                    onClick={() => setShowModal(false)}
-                  >
-                    Save Changes
-                  </button>
-                </div>
               </div>
             </div>
           </div>
