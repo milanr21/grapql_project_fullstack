@@ -1,9 +1,11 @@
-import { useQuery } from "@apollo/client";
-import React from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate, useParams } from "react-router-dom";
 import { GET_PROJECT_BY_ID } from "../queries/getProjectsById";
 import { IoArrowBack } from "react-icons/io5";
 import { MdDeleteForever } from "react-icons/md";
+import { DELETE_PROJECT } from "../mutation/DeleteProject";
+import { GET_CLIENTS } from "../queries/getClientsQueries";
+import { GET_PROJECTS } from "../queries/getProjectsQueries";
 
 const Project = () => {
   const { id } = useParams();
@@ -11,6 +13,18 @@ const Project = () => {
 
   const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
     variables: { id },
+  });
+
+  const [deleteProject] = useMutation(DELETE_PROJECT, {
+    variables: { id },
+    refetchQueries: [
+      {
+        query: GET_CLIENTS,
+      },
+      {
+        query: GET_PROJECTS,
+      },
+    ],
   });
 
   console.log("The Project Id is", data);
@@ -41,7 +55,7 @@ const Project = () => {
 
           {data && data.project && (
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => [deleteProject(), navigate("/")]}
               className="mb-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded items-center justify-between flex gap-1"
             >
               <MdDeleteForever fontSize={22} className="inline-block" />
