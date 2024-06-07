@@ -1,5 +1,4 @@
 // Table.jsx
-import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
 interface TableProps<T> {

@@ -1,7 +1,6 @@
 // components/Projects.js
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../queries/getProjectsQueries";
-import ProjectCard from "./ProjectCard/ProjectCard";
 import { Link } from "react-router-dom";
 
 interface Project {

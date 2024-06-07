@@ -3,13 +3,23 @@ import STATUS from "../../STATUSES";
 import { useMutation } from "@apollo/client";
 import { UPDATE_PROJECT } from "../../mutation/UpdateProject";
 import { GET_PROJECTS } from "../../queries/getProjectsQueries";
-import { useNavigate } from "react-router-dom";
 
-const EditProject = ({ project }) => {
-  const [name, setName] = useState(project.name);
-  const [description, setDescription] = useState(project.description);
-  const [status, setStatus] = useState("");
-  const navigate = useNavigate();
+interface ProjectProps {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+}
+
+interface EdiProjectProps {
+  project: ProjectProps;
+}
+
+const EditProject: React.FC<EdiProjectProps> = ({ project }) => {
+  const [name, setName] = useState<string>(project.name);
+  const [description, setDescription] = useState<string>(project.description);
+  const [status, setStatus] = useState<string>("");
+
   const [updateProject] = useMutation(UPDATE_PROJECT, {
     variables: { id: project.id, name, description, status },
     refetchQueries: [
@@ -22,7 +32,7 @@ const EditProject = ({ project }) => {
     ],
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (name === "" || description === "" || status === "") {
@@ -30,7 +40,14 @@ const EditProject = ({ project }) => {
       return;
     }
 
-    updateProject(name, description, status);
+    updateProject({
+      variables: {
+        id: project.id,
+        name,
+        description,
+        status,
+      },
+    });
   }
 
   return (

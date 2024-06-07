@@ -8,7 +8,6 @@ import { DELETE_PROJECT } from "../mutation/DeleteProject";
 import { GET_CLIENTS } from "../queries/getClientsQueries";
 import { GET_PROJECTS } from "../queries/getProjectsQueries";
 import EditProject from "../components/EditProject/EditProject";
-import React from "react";
 
 const Project = () => {
   const { id } = useParams();

@@ -1,5 +1,3 @@
-import React from "react";
-
 import ClientModal from "../components/Modal/ClientModal";
 
 import ProjectModal from "../components/Modal/ProjectModal";

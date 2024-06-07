@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
-import { ADD_CLIENT } from "../../mutation/AddClient";
 import { GET_CLIENTS } from "../../queries/getClientsQueries";
 import { useMutation, useQuery } from "@apollo/client";
 import STATUS from "../../STATUSES";
@@ -11,11 +10,16 @@ interface ModalProps {
   title: string;
 }
 
+interface ClientProps {
+  id: string;
+  name: string;
+}
+
 export default function ProjectModal({ title }: ModalProps) {
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [clientId, setClientId] = React.useState("");
-  const [status, setStatus] = React.useState(STATUS.NOT_STARTED);
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [clientId, setClientId] = useState<string>("");
+  const [status, setStatus] = useState<string>(STATUS.NOT_STARTED);
 
   const [showModal, setShowModal] = useState(false);
   const [addProject] = useMutation(ADD_PROJECT, {
@@ -30,7 +34,7 @@ export default function ProjectModal({ title }: ModalProps) {
 
   const { data, loading, error } = useQuery(GET_CLIENTS);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (name === "" || description === "" || status === "") {
@@ -38,7 +42,9 @@ export default function ProjectModal({ title }: ModalProps) {
       return;
     }
 
-    addProject(name, description, status, clientId);
+    addProject({
+      variables: { name, description, status, clientId },
+    });
 
     setName("");
     setDescription("");
@@ -149,7 +155,7 @@ export default function ProjectModal({ title }: ModalProps) {
                             onChange={(e) => setClientId(e.target.value)}
                           >
                             <option value="">Select Client</option>
-                            {data.clients.map((client) => (
+                            {data.clients.map((client: ClientProps) => (
                               <option key={client.id} value={client.id}>
                                 {client.name}
                               </option>

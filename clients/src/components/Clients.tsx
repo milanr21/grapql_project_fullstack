@@ -1,4 +1,3 @@
-import React from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_CLIENTS } from "../queries/getClientsQueries";
 import Table from "./Table/Table";
