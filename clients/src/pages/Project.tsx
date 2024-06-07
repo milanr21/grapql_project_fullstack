@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate, useParams } from "react-router-dom";
 import { GET_PROJECT_BY_ID } from "../queries/getProjectsById";
@@ -6,10 +7,13 @@ import { MdDeleteForever } from "react-icons/md";
 import { DELETE_PROJECT } from "../mutation/DeleteProject";
 import { GET_CLIENTS } from "../queries/getClientsQueries";
 import { GET_PROJECTS } from "../queries/getProjectsQueries";
+import EditProject from "../components/EditProject/EditProject";
+import React from "react";
 
 const Project = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false);
 
   const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
     variables: { id },
@@ -54,13 +58,21 @@ const Project = () => {
           </button>
 
           {data && data.project && (
-            <button
-              onClick={() => [deleteProject(), navigate("/")]}
-              className="mb-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded items-center justify-between flex gap-1"
-            >
-              <MdDeleteForever fontSize={22} className="inline-block" />
-              Delete Project
-            </button>
+            <div className="flex gap-4">
+              <button
+                onClick={() => [deleteProject(), navigate("/")]}
+                className="mb-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded items-center justify-between flex gap-1"
+              >
+                <MdDeleteForever fontSize={22} className="inline-block" />
+                Delete Project
+              </button>
+              <button
+                onClick={() => setIsEditing(true)}
+                className="mb-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded items-center justify-between flex gap-1"
+              >
+                Edit Project
+              </button>
+            </div>
           )}
         </div>
 
@@ -74,12 +86,7 @@ const Project = () => {
 
                 {data.project.name}
               </h1>
-              <p
-                className=" bg-gray-400
-              
-              py-2 px-2 rounded-lg text-white font-medium
-              mb-6 text-lg "
-              >
+              <p className="bg-gray-400 py-2 px-2 rounded-lg text-white font-medium mb-6 text-lg">
                 {data.project.description}
               </p>
               <div className="bg-gray-100 p-4 rounded-lg">
@@ -99,6 +106,8 @@ const Project = () => {
                   {data.project.client.phoneNo}
                 </p>
               </div>
+
+              {isEditing && <EditProject project={data.project} />}
             </div>
           </div>
         ) : (

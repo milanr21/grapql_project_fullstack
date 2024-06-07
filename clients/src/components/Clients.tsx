@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_CLIENTS } from "../queries/getClientsQueries";
 import Table from "./Table/Table";
 import { DELETE_MUTATION } from "../mutation/deleteClient";
+import { GET_PROJECTS } from "../queries/getProjectsQueries";
 
 interface Client {
   id: string;
@@ -26,7 +27,7 @@ const Clients = () => {
     try {
       await deleteClient({
         variables: { id },
-        refetchQueries: [{ query: GET_CLIENTS }],
+        refetchQueries: [{ query: GET_CLIENTS }, { query: GET_PROJECTS }],
       });
     } catch (error) {
       console.error(error);
