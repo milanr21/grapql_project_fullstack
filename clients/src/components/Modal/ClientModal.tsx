@@ -3,10 +3,13 @@ import { FaUserAlt } from "react-icons/fa";
 import { ADD_CLIENT } from "../../mutation/AddClient";
 import { GET_CLIENTS } from "../../queries/getClientsQueries";
 import { useMutation } from "@apollo/client";
+import toast, { Toaster } from "react-hot-toast";
 
 interface ModalProps {
   title: string;
 }
+
+const notify = toast("Client added successfully");
 
 export default function ClientModal({ title }: ModalProps) {
   const [name, setName] = useState<string>("");
@@ -39,6 +42,8 @@ export default function ClientModal({ title }: ModalProps) {
     setPhoneNo("");
 
     setShowModal(false);
+
+    notify;
   };
 
   return (
