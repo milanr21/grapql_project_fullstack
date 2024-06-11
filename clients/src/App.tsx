@@ -6,7 +6,10 @@ import NotFound from "./pages/NotFound";
 import Project from "./pages/Project";
 
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  uri:
+    import.meta.env.NODE_ENV === "development"
+      ? "http://localhost:5000/graphql"
+      : "/graphql",
   cache: new InMemoryCache(),
 });
 
